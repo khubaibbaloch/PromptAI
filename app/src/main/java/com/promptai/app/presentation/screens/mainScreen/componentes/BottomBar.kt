@@ -26,17 +26,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import com.promptai.app.ui.theme.OutlineColor
 import com.promptai.app.ui.theme.PrimaryColor
+import com.promptai.app.R
 
 @Composable
 fun BottomBar() {
     val items = remember {
         listOf(
-            BottomNavItem(Icons.Filled.Star, "Magic Wand"),
-            BottomNavItem(Icons.Filled.Star, "Grid View"),
-            BottomNavItem(Icons.Filled.Star, "Groups"),
-            BottomNavItem(Icons.Filled.Star, "Bookmark")
+            BottomNavItem(R.drawable.prompt_ai, "Magic Wand"),
+            BottomNavItem(R.drawable.prompt_templates, "Grid View"),
+            BottomNavItem(R.drawable.prompt_community, "Groups"),
+            BottomNavItem(R.drawable.prompt_saved, "Bookmark")
         )
     }
 
@@ -60,7 +62,6 @@ fun BottomBar() {
             items.forEachIndexed { index, item ->
                 val isSelected = selectedItem == index
 
-                // Replace NavigationBarItem with plain Box + clickable
                 Box(
                     modifier = Modifier
                         .padding(horizontal = 4.dp)
@@ -68,15 +69,15 @@ fun BottomBar() {
                         .clip(CircleShape)
                         .background(if (isSelected) OutlineColor else Color.Transparent)
                         .clickable(
-                            indication = null, // No ripple
-                            interactionSource = remember { MutableInteractionSource() } // Disable default touch feedback
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() }
                         ) {
                             selectedItem = index
                         },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = item.icon,
+                        painter = painterResource(id = item.icon),
                         contentDescription = item.contentDescription,
                         modifier = Modifier.size(28.dp),
                         tint = if (isSelected) Color.Black else Color.White
@@ -87,8 +88,7 @@ fun BottomBar() {
     }
 }
 
-
 data class BottomNavItem(
-    val icon: ImageVector,
+    val icon: Int, // Drawable resource reference
     val contentDescription: String
 )
