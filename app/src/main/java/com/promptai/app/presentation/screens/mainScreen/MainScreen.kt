@@ -22,17 +22,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
+import com.promptai.app.presentation.navigation.RootNavHost
 import com.promptai.app.presentation.screens.mainScreen.componentes.BottomBar
 
-// MainScreen composable that builds the entire UI
+
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController) {
 
     var promptInput by rememberSaveable { mutableStateOf("Generate Creative Writing Prompt On Artificial Intelligence.") }
 
     Scaffold(
         bottomBar = {
-            BottomBar()
+            BottomBar(navController)
         },
         containerColor = Color(0xFFF9FAFB)
     ) { paddingValues ->
@@ -45,6 +49,7 @@ fun MainScreen() {
                     vertical = 24.dp
                 )
         ) {
+            RootNavHost(navController)
 
             Text(
                 text = "AI Prompt Assistant",
@@ -122,10 +127,3 @@ fun MainScreen() {
 }
 
 
-
-// Preview function to see the MainScreen in the Android Studio preview
-@Preview(showBackground = true, widthDp = 360, heightDp = 700)
-@Composable
-fun MainScreenPreview() {
-    MainScreen()
-}

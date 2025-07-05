@@ -24,21 +24,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
 import com.promptai.app.ui.theme.OutlineColor
 import com.promptai.app.ui.theme.PrimaryColor
 import com.promptai.app.R
+import com.promptai.app.presentation.navigation.ScreenRoutes
 import com.promptai.app.ui.theme.BackgroundColor
 
 @Composable
-fun BottomBar() {
+fun BottomBar(navController: NavController) {
     val items = remember {
         listOf(
-            BottomNavItem(R.drawable.prompt_ai, "Magic Wand"),
-            BottomNavItem(R.drawable.prompt_template, "Grid View"),
-            BottomNavItem(R.drawable.prompt_community, "Groups"),
-            BottomNavItem(R.drawable.prompt_saved, "Bookmark")
+            BottomNavItem(R.drawable.prompt_ai, "Magic Wand", ScreenRoutes.PromptAiScreen.routes),
+            BottomNavItem(R.drawable.prompt_template, "Grid View", ScreenRoutes.PromptTemplateScreen.routes),
+            BottomNavItem(R.drawable.prompt_community, "Groups", ScreenRoutes.CommunityScreen.routes),
+            BottomNavItem(R.drawable.prompt_saved, "Bookmark", ScreenRoutes.SavedPromptScreen.routes)
         )
     }
+
 
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
 
@@ -71,6 +74,7 @@ fun BottomBar() {
                             interactionSource = remember { MutableInteractionSource() }
                         ) {
                             selectedItem = index
+                            navController.navigate(item.route)
                         },
                     contentAlignment = Alignment.Center
                 ) {
@@ -87,6 +91,7 @@ fun BottomBar() {
 }
 
 data class BottomNavItem(
-    val icon: Int, // Drawable resource reference
-    val contentDescription: String
+    val icon: Int,
+    val contentDescription: String,
+    val route: String
 )

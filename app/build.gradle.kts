@@ -56,4 +56,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // COMPOSE NAVIGATION
+    implementation("androidx.navigation:navigation-compose:2.9.0")
+
+    // SystemUiController
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
+
+    // LifeCycle Viewmodel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.0")
 }
