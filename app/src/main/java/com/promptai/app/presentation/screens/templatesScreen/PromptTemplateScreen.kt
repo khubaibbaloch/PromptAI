@@ -4,12 +4,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,22 +49,22 @@ fun PromptTemplateScreen() {
     val blogWritingPrompts = remember {
         listOf(
             PromptTemplate(
-                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\n\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
+                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
             ),
             PromptTemplate(
-                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\n\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
+                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
             ),
             PromptTemplate(
-                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\n\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
+                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
             ),
             PromptTemplate(
-                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\n\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
+                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
             ),
             PromptTemplate(
-                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\n\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
+                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
             ),
             PromptTemplate(
-                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\n\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
+                "Sure! Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\nIn this post, share a personal story where a mistake or failure taught you an important life lesson. Reflect on what went wrong, how it affected you, and what you learned from the experience."
             )
 
         )
@@ -137,6 +138,7 @@ fun PromptTemplateScreen() {
                         selectedContainerColor = PrimaryColor,
                         containerColor = Color.Transparent
                     ),
+                    shape = RoundedCornerShape(12.dp),
                     border = BorderStroke(
                         width = 1.dp,
                         color = PrimaryColor
@@ -171,7 +173,7 @@ fun PromptTemplateScreen() {
                 ) {
                     PromptCard(
                         prompt = prompt,
-                        showNextArrow = true
+                        onMoreClick = {}
                     )
 
                     // This is the text below the card (outside the card)
@@ -197,64 +199,96 @@ fun PromptTemplateScreen() {
 }
 
 @Composable
-fun PromptCard(prompt: PromptTemplate, showNextArrow: Boolean = false) {
+fun PromptCard(
+    prompt: PromptTemplate,
+    onMoreClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
             .clip(RoundedCornerShape(12.dp))
             .background(Color.Transparent)
-            .border(1.dp, OutlineColor, shape = RoundedCornerShape(12.dp))
-             .padding(8.dp)
+            .border(1.dp, OutlineColor, RoundedCornerShape(12.dp))
+            .padding(top = 8.dp, end = 8.dp, start = 8.dp, bottom = 4.dp)
     ) {
-        Text(
-            text = prompt.description,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontSize = 12.sp,
-                color = TextColor
-            ),
-            maxLines = 8,
-           // modifier = Modifier.padding(bottom = 16.dp)
-        )
+        val textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp, color = TextColor)
+
+        // Row with Text and trailing Icon
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = prompt.description,
+                style = textStyle,
+                maxLines = 10,
+                overflow = TextOverflow.Ellipsis,
+                lineHeight = 14.sp,
+                modifier = Modifier
+                    .weight(1f)
+            )
+
+            IconButton(
+                onClick = { onMoreClick() },
+                modifier = Modifier
+                    .padding(start = 4.dp)
+                    .clip(CircleShape)
+                    .background(PrimaryColor)
+                    .size(18.dp)
+                    .align(Alignment.Bottom),
+
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.left_arrow_icon), // use your icon
+                    contentDescription = "Show More",
+                    tint = Color.White,
+                    modifier = Modifier.size(10.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { }, modifier = Modifier.size(30.dp)) {
+            IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
                 Icon(
-                    painter = painterResource(R.drawable.copy_icon),
+                    painter = painterResource(R.drawable.bold_share_icon),
                     contentDescription = "Copy",
-                    tint = IconColor,
-                    modifier = Modifier.size(15.dp)
+                    tint = PrimaryColor,
+                    modifier = Modifier.size(12.dp)
                 )
             }
-           // Spacer(modifier = Modifier.width(16.dp))
-            IconButton(onClick = { },modifier = Modifier.size(30.dp)) {
+            IconButton(onClick = { },modifier = Modifier.size(25.dp)) {
                 Icon(
-                    painter = painterResource(R.drawable.save_icon),
+                    painter = painterResource(R.drawable.bold_reshare_icon),
                     contentDescription = "Bookmark",
-                    tint = IconColor,
+                    tint = PrimaryColor,
                     modifier = Modifier.size(15.dp)
                 )
             }
-            //Spacer(modifier = Modifier.width(16.dp))
-            IconButton(onClick = { },modifier = Modifier.size(30.dp)) {
+            IconButton(onClick = { },modifier = Modifier.size(25.dp)) {
                 Icon(
-                    painter = painterResource(R.drawable.share_icon),
+                    painter = painterResource(R.drawable.bold_save_icon),
                     contentDescription = "Share",
-                    tint = IconColor,
-                    modifier = Modifier.size(15.dp)
+                    tint =PrimaryColor,
+                    modifier = Modifier.size(12.dp)
+                )
+            }
+            IconButton(onClick = { },modifier = Modifier.size(25.dp)) {
+                Icon(
+                    painter = painterResource(R.drawable.bold_copy_icon),
+                    contentDescription = "Share",
+                    tint = PrimaryColor,
+                    modifier = Modifier.size(12.dp)
                 )
             }
         }
     }
-
 }
 
 
-@Preview(showBackground = true, widthDp = 428, heightDp = 700)
+@Preview(showBackground = true, widthDp = 360, heightDp = 700)
 @Composable
 fun PromptTemplateScreenPreview() {
     PromptTemplateScreen()
