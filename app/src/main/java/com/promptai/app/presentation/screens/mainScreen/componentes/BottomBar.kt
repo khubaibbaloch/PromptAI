@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import com.promptai.app.ui.theme.OutlineColor
 import com.promptai.app.ui.theme.PrimaryColor
 import com.promptai.app.R
+import com.promptai.app.ui.theme.BackgroundColor
 
 @Composable
 fun BottomBar() {
@@ -77,7 +78,7 @@ fun BottomBar() {
                         painter = painterResource(id = item.icon),
                         contentDescription = item.contentDescription,
                         modifier = Modifier.size(20.dp),
-                        tint = if (isSelected) Color.Black else Color.White
+                        tint = if (isSelected) PrimaryColor else BackgroundColor
                     )
                 }
             }
