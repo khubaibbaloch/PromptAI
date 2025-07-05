@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -43,85 +44,86 @@ fun MainScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
                 .padding(
-                    horizontal = 16.dp,
-                    vertical = 24.dp
+                    start = paddingValues.calculateStartPadding(LayoutDirection.Ltr) + 16.dp,
+                    top = paddingValues.calculateTopPadding() + 24.dp,
+                    end = paddingValues.calculateEndPadding(LayoutDirection.Ltr) + 16.dp,
+                    bottom = 0.dp
                 )
         ) {
             RootNavHost(navController)
 
-            Text(
-                text = "AI Prompt Assistant",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp,
-                    color = Color.Black
-                ),
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
-
-
-            Text(
-                text = "Describe Topic",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp,
-                    color = Color.Black
-                ),
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-
-
-            OutlinedTextField(
-                value = promptInput,
-                onValueChange = { promptInput = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(
-                        min = 120.dp,
-                        max = 200.dp
-                    )
-                    .clip(RoundedCornerShape(12.dp)),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    disabledContainerColor = Color.White,
-                    errorContainerColor = Color.White,
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent,
-                    errorBorderColor = Color.Transparent,
-                    disabledBorderColor = Color.Transparent,
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
-                ),
-                textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-                placeholder = { Text("Enter your topic here...") }
-            )
-
-            Spacer(modifier = Modifier.height(32.dp)) // Spacer between text field and button
-
-            // "Generate Prompt" Button
-            Button(
-                onClick = { /* Handle generate prompt click */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp) // Fixed height for the button
-                    .clip(RoundedCornerShape(12.dp)), // Apply rounded corners to the button
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1E2A38), // Dark background color for the button
-                    contentColor = Color.White // White text color
-                ),
-                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
-            ) {
-                Text(
-                    text = "Generate Prompt",
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp
-                    )
-                )
-            }
+//            Text(
+//                text = "AI Prompt Assistant",
+//                style = MaterialTheme.typography.headlineMedium.copy(
+//                    fontWeight = FontWeight.Bold,
+//                    fontSize = 24.sp,
+//                    color = Color.Black
+//                ),
+//                modifier = Modifier.padding(bottom = 24.dp)
+//            )
+//
+//
+//            Text(
+//                text = "Describe Topic",
+//                style = MaterialTheme.typography.bodyLarge.copy(
+//                    fontWeight = FontWeight.SemiBold,
+//                    fontSize = 18.sp,
+//                    color = Color.Black
+//                ),
+//                modifier = Modifier.padding(bottom = 8.dp)
+//            )
+//
+//
+//            OutlinedTextField(
+//                value = promptInput,
+//                onValueChange = { promptInput = it },
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .heightIn(
+//                        min = 120.dp,
+//                        max = 200.dp
+//                    )
+//                    .clip(RoundedCornerShape(12.dp)),
+//                colors = OutlinedTextFieldDefaults.colors(
+//                    focusedContainerColor = Color.White,
+//                    unfocusedContainerColor = Color.White,
+//                    disabledContainerColor = Color.White,
+//                    errorContainerColor = Color.White,
+//                    focusedBorderColor = Color.Transparent,
+//                    unfocusedBorderColor = Color.Transparent,
+//                    errorBorderColor = Color.Transparent,
+//                    disabledBorderColor = Color.Transparent,
+//                    focusedTextColor = Color.Black,
+//                    unfocusedTextColor = Color.Black
+//                ),
+//                textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+//                placeholder = { Text("Enter your topic here...") }
+//            )
+//
+//            Spacer(modifier = Modifier.height(32.dp)) // Spacer between text field and button
+//
+//            // "Generate Prompt" Button
+//            Button(
+//                onClick = { /* Handle generate prompt click */ },
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(56.dp) // Fixed height for the button
+//                    .clip(RoundedCornerShape(12.dp)), // Apply rounded corners to the button
+//                colors = ButtonDefaults.buttonColors(
+//                    containerColor = Color(0xFF1E2A38), // Dark background color for the button
+//                    contentColor = Color.White // White text color
+//                ),
+//                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
+//            ) {
+//                Text(
+//                    text = "Generate Prompt",
+//                    style = MaterialTheme.typography.titleMedium.copy(
+//                        fontWeight = FontWeight.SemiBold,
+//                        fontSize = 18.sp
+//                    )
+//                )
+//            }
         }
     }
 }

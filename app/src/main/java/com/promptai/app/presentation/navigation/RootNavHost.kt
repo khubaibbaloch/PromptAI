@@ -13,7 +13,7 @@ import com.promptai.app.presentation.screens.templatesScreen.PromptTemplateScree
 fun RootNavHost(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = ScreenRoutes.PromptAiScreen.routes
+        startDestination = ScreenRoutes.PromptTemplateScreen.routes
     ) {
         composable(route = ScreenRoutes.PromptAiScreen.routes) {
             PromptAiScreen()

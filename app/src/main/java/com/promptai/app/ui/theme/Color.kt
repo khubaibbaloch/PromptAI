@@ -13,4 +13,8 @@ val Pink40 = Color(0xFF7D5260)
 // Custom Colors
 val PrimaryColor = Color(0xFF0E1F2F)
 val BackgroundColor = Color(0xFFF9FAFB)
-val OutlineColor = Color(0xFFD9D9D9)
+
+//val OutlineColor = Color(0xFFD9D9D9)
+val OutlineColor = Color(0xFFC1C1C1)
+val TextColor = Color(0xFF1C1B1F)
+val IconColor = Color(0xFF717171)
