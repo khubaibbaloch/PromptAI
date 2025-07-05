@@ -192,7 +192,7 @@ fun PromptAiScreen() {
                 .clip(RoundedCornerShape(12.dp)) // Rounded corners for the container
                 .background(Color.Transparent) // White background for the generated text section
                 .border(1.dp, OutlineColor, shape = RoundedCornerShape(12.dp))
-                .padding(16.dp)
+                .padding(vertical = 8.dp,horizontal = 16.dp)
         ) {
             Text(
                 text = generatedPromptText,
@@ -217,10 +217,10 @@ fun PromptAiScreen() {
                         painter = painterResource(R.drawable.copy_icon),
                         contentDescription = "Copy",
                         tint = IconColor,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(15.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(16.dp)) // Spacer between icons
+               // Spacer(modifier = Modifier.width(16.dp)) // Spacer between icons
                 // Bookmark Icon
                 IconButton(
                     onClick = { /* Handle bookmark action */ },
@@ -230,10 +230,10 @@ fun PromptAiScreen() {
                         painter = painterResource(R.drawable.save_icon),
                         contentDescription = "Bookmark",
                         tint = IconColor,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(15.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(16.dp)) // Spacer between icons
+                //Spacer(modifier = Modifier.width(16.dp)) // Spacer between icons
                 // Share Icon
                 IconButton(
                     onClick = { /* Handle share action */ },
@@ -243,7 +243,7 @@ fun PromptAiScreen() {
                         painter = painterResource(R.drawable.share_icon),
                         contentDescription = "Share",
                         tint = IconColor,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(15.dp)
                     )
                 }
             }

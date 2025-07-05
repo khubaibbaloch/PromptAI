@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.promptai.app.presentation.screens.communityScreen.CommunityScreen
 import com.promptai.app.presentation.screens.promptAiScreen.PromptAiScreen
+import com.promptai.app.presentation.screens.promptSectionScreen.PromptSectionScreen
 import com.promptai.app.presentation.screens.savedPromptScreen.SavedPromptScreen
 import com.promptai.app.presentation.screens.templatesScreen.PromptTemplateScreen
 
@@ -13,7 +14,7 @@ import com.promptai.app.presentation.screens.templatesScreen.PromptTemplateScree
 fun RootNavHost(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = ScreenRoutes.PromptTemplateScreen.routes
+        startDestination = ScreenRoutes.PromptAiScreen.routes
     ) {
         composable(route = ScreenRoutes.PromptAiScreen.routes) {
             PromptAiScreen()
@@ -22,10 +23,13 @@ fun RootNavHost(navHostController: NavHostController) {
             PromptTemplateScreen()
         }
         composable(route = ScreenRoutes.CommunityScreen.routes) {
-            CommunityScreen()
+            CommunityScreen(navHostController)
         }
         composable(route = ScreenRoutes.SavedPromptScreen.routes) {
             SavedPromptScreen()
+        }
+        composable(route = ScreenRoutes.PromptSectionScreen.routes) {
+            PromptSectionScreen()
         }
     }
 }

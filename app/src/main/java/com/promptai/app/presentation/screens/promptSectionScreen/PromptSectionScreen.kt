@@ -1,41 +1,60 @@
-package com.promptai.app.presentation.screens.templatesScreen
+package com.promptai.app.presentation.screens.promptSectionScreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.promptai.app.R
+import com.promptai.app.presentation.screens.communityScreen.CommunityPromptCard
+import com.promptai.app.presentation.screens.templatesScreen.PromptTemplate
+import com.promptai.app.presentation.screens.templatesScreen.TemplatesPromptCard
 import com.promptai.app.ui.theme.IconColor
 import com.promptai.app.ui.theme.OutlineColor
 import com.promptai.app.ui.theme.PrimaryColor
 import com.promptai.app.ui.theme.TextColor
-import javax.xml.transform.Templates
-
 
 @Composable
-fun PromptTemplateScreen() {
+fun PromptSectionScreen() {
     var searchQuery by rememberSaveable { mutableStateOf("") }
     val categories = remember {
         listOf(
@@ -79,7 +98,7 @@ fun PromptTemplateScreen() {
     ) {
 
         Text(
-            text = "Templates",
+            text = "Categories",
             style = MaterialTheme.typography.headlineMedium.copy(
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 22.sp,
@@ -115,7 +134,7 @@ fun PromptTemplateScreen() {
                 unfocusedTextColor = TextColor
             ),
             textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-            placeholder = { Text("Search for prompts", color = IconColor) }
+            placeholder = { Text("Search for Categories", color = IconColor) }
         )
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow(
@@ -198,106 +217,3 @@ fun PromptTemplateScreen() {
     }
 
 }
-
-@Composable
-fun TemplatesPromptCard(
-    prompt: PromptTemplate,
-    onMoreClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color.Transparent)
-            .border(1.dp, OutlineColor, RoundedCornerShape(12.dp))
-            .padding(top = 8.dp, end = 8.dp, start = 8.dp, bottom = 4.dp)
-    ) {
-        val textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp, color = TextColor)
-
-        // Row with Text and trailing Icon
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                text = prompt.description,
-                style = textStyle,
-                maxLines = 10,
-                overflow = TextOverflow.Ellipsis,
-                lineHeight = 14.sp,
-                modifier = Modifier
-                    .weight(1f)
-            )
-
-            IconButton(
-                onClick = { onMoreClick() },
-                modifier = Modifier
-                    .padding(start = 4.dp)
-                    .clip(CircleShape)
-                    .background(PrimaryColor)
-                    .size(18.dp)
-                    .align(Alignment.Bottom),
-
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.left_arrow_icon), // use your icon
-                    contentDescription = "Show More",
-                    tint = Color.White,
-                    modifier = Modifier.size(10.dp)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
-                Icon(
-                    painter = painterResource(R.drawable.bold_share_icon),
-                    contentDescription = "Copy",
-                    tint = PrimaryColor,
-                    modifier = Modifier.size(12.dp)
-                )
-            }
-            IconButton(onClick = { },modifier = Modifier.size(25.dp)) {
-                Icon(
-                    painter = painterResource(R.drawable.bold_reshare_icon),
-                    contentDescription = "Bookmark",
-                    tint = PrimaryColor,
-                    modifier = Modifier.size(15.dp)
-                )
-            }
-            IconButton(onClick = { },modifier = Modifier.size(25.dp)) {
-                Icon(
-                    painter = painterResource(R.drawable.bold_save_icon),
-                    contentDescription = "Share",
-                    tint =PrimaryColor,
-                    modifier = Modifier.size(12.dp)
-                )
-            }
-            IconButton(onClick = { },modifier = Modifier.size(25.dp)) {
-                Icon(
-                    painter = painterResource(R.drawable.bold_copy_icon),
-                    contentDescription = "Share",
-                    tint = PrimaryColor,
-                    modifier = Modifier.size(12.dp)
-                )
-            }
-        }
-    }
-}
-
-
-@Preview(showBackground = true, widthDp = 360, heightDp = 700)
-@Composable
-fun PromptTemplateScreenPreview() {
-    PromptTemplateScreen()
-}
-
-// Data class for a prompt template
-data class PromptTemplate(
-    val description: String
-)
-
-

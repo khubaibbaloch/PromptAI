@@ -6,4 +6,5 @@ sealed class ScreenRoutes(val routes:String) {
     data object SavedPromptScreen: ScreenRoutes(routes = "SavedPromptScreen")
     data object PromptTemplateScreen: ScreenRoutes(routes = "PromptTemplateScreen")
     data object CommunityScreen: ScreenRoutes(routes = "CommunityScreen")
+    data object PromptSectionScreen: ScreenRoutes(routes = "PromptSectionScreen")
 }
