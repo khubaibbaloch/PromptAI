@@ -232,7 +232,7 @@ fun CommunityScreen(navController: NavController) {
         List(6) {
             PromptTemplate(
                 "Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\n" +
-                        "Share a personal story where a mistake or failure taught you an important life lesson. Reflect on it."
+                        "Share a personal story where a mistake or failure taught you an important life lesson. Reflect on it.Share a personal story where a mistake or failure taught you an important life lesson. Reflect on it."
             )
         }
     }
