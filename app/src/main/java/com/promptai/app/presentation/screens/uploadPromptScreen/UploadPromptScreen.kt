@@ -242,7 +242,3 @@ fun UploadPromptScreen(navController: NavController) {
 }
 
 
-// Data class for a prompt template (re-using from previous screen if applicable)
-data class PromptTemplate(
-    val description: String
-)

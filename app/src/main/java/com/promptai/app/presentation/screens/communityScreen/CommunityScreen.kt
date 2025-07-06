@@ -51,9 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.promptai.app.R
+import com.promptai.app.data.model.PromptTemplate
 import com.promptai.app.presentation.navigation.ScreenRoutes
-import com.promptai.app.presentation.screens.templatesScreen.PromptTemplate
-import com.promptai.app.presentation.screens.templatesScreen.TemplatesPromptCard
 import com.promptai.app.ui.theme.IconColor
 import com.promptai.app.ui.theme.OutlineColor
 import com.promptai.app.ui.theme.PrimaryColor

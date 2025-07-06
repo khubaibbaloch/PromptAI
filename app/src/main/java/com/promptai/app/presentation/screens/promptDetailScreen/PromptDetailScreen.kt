@@ -28,8 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.promptai.app.R // Assuming R.drawable.heart_icon and other icon drawables exist
+import com.promptai.app.data.model.PromptTemplate
 import com.promptai.app.presentation.screens.communityScreen.CommunityPromptCard
-import com.promptai.app.presentation.screens.templatesScreen.PromptTemplate
+
 import com.promptai.app.ui.theme.OutlineColor
 import com.promptai.app.ui.theme.PrimaryColor
 import com.promptai.app.ui.theme.TextColor // Assuming TextColor is defined in your theme
