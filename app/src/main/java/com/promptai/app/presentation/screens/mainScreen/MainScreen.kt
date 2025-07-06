@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Star // Using Star as a placeholder for the magic wand
 import androidx.compose.material3.*
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -26,18 +28,47 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.promptai.app.presentation.navigation.RootNavHost
+import com.promptai.app.presentation.navigation.ScreenRoutes
 import com.promptai.app.presentation.screens.mainScreen.componentes.BottomBar
+import com.promptai.app.ui.theme.PrimaryColor
 
 
 @Composable
 fun MainScreen(navController: NavHostController) {
 
-    var promptInput by rememberSaveable { mutableStateOf("Generate Creative Writing Prompt On Artificial Intelligence.") }
+    val fabVisibleScreens = listOf(
+        ScreenRoutes.PromptAiScreen.routes,
+        ScreenRoutes.CommunityScreen.routes,
+        ScreenRoutes.PromptTemplateScreen.routes,
+        ScreenRoutes.SavedPromptScreen.routes
+    )
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+    val showFab = currentRoute in fabVisibleScreens
 
     Scaffold(
         bottomBar = {
             BottomBar(navController)
+        },
+        floatingActionButton = {
+            if (showFab) {
+                FloatingActionButton(
+                    onClick = {
+                        navController.navigate(ScreenRoutes.UploadPromptScreen.routes)
+                    },
+                    shape = CircleShape,
+                    containerColor = PrimaryColor,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "",
+                        tint = Color.White
+                    )
+                }
+            }
+
         },
         containerColor = Color(0xFFF9FAFB)
     ) { paddingValues ->
@@ -52,78 +83,6 @@ fun MainScreen(navController: NavHostController) {
                 )
         ) {
             RootNavHost(navController)
-
-//            Text(
-//                text = "AI Prompt Assistant",
-//                style = MaterialTheme.typography.headlineMedium.copy(
-//                    fontWeight = FontWeight.Bold,
-//                    fontSize = 24.sp,
-//                    color = Color.Black
-//                ),
-//                modifier = Modifier.padding(bottom = 24.dp)
-//            )
-//
-//
-//            Text(
-//                text = "Describe Topic",
-//                style = MaterialTheme.typography.bodyLarge.copy(
-//                    fontWeight = FontWeight.SemiBold,
-//                    fontSize = 18.sp,
-//                    color = Color.Black
-//                ),
-//                modifier = Modifier.padding(bottom = 8.dp)
-//            )
-//
-//
-//            OutlinedTextField(
-//                value = promptInput,
-//                onValueChange = { promptInput = it },
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .heightIn(
-//                        min = 120.dp,
-//                        max = 200.dp
-//                    )
-//                    .clip(RoundedCornerShape(12.dp)),
-//                colors = OutlinedTextFieldDefaults.colors(
-//                    focusedContainerColor = Color.White,
-//                    unfocusedContainerColor = Color.White,
-//                    disabledContainerColor = Color.White,
-//                    errorContainerColor = Color.White,
-//                    focusedBorderColor = Color.Transparent,
-//                    unfocusedBorderColor = Color.Transparent,
-//                    errorBorderColor = Color.Transparent,
-//                    disabledBorderColor = Color.Transparent,
-//                    focusedTextColor = Color.Black,
-//                    unfocusedTextColor = Color.Black
-//                ),
-//                textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-//                placeholder = { Text("Enter your topic here...") }
-//            )
-//
-//            Spacer(modifier = Modifier.height(32.dp)) // Spacer between text field and button
-//
-//            // "Generate Prompt" Button
-//            Button(
-//                onClick = { /* Handle generate prompt click */ },
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(56.dp) // Fixed height for the button
-//                    .clip(RoundedCornerShape(12.dp)), // Apply rounded corners to the button
-//                colors = ButtonDefaults.buttonColors(
-//                    containerColor = Color(0xFF1E2A38), // Dark background color for the button
-//                    contentColor = Color.White // White text color
-//                ),
-//                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
-//            ) {
-//                Text(
-//                    text = "Generate Prompt",
-//                    style = MaterialTheme.typography.titleMedium.copy(
-//                        fontWeight = FontWeight.SemiBold,
-//                        fontSize = 18.sp
-//                    )
-//                )
-//            }
         }
     }
 }

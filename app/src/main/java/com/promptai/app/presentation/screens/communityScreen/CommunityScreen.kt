@@ -203,7 +203,7 @@ fun CommunityScreen(navController: NavController) {
                         ) {
                             CommunityPromptCard(
                                 prompt = prompt,
-                                onMoreClick = { /* Handle click */ }
+                                onMoreClick = {   navController.navigate(ScreenRoutes.PromptDetailScreen.routes) }
                             )
                             Text(
                                 text = "Personal Development",
@@ -227,6 +227,8 @@ fun CommunityPromptCard(
     prompt: PromptTemplate,
     onMoreClick: () -> Unit
 ) {
+    var isTextOverflowing by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -235,42 +237,47 @@ fun CommunityPromptCard(
             .border(1.dp, OutlineColor, RoundedCornerShape(12.dp))
             .padding(top = 8.dp, end = 8.dp, start = 8.dp, bottom = 4.dp)
     ) {
-        val textStyle =
-            MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp, color = TextColor)
+        val textStyle = MaterialTheme.typography.bodyMedium.copy(
+            fontSize = 12.sp,
+            color = TextColor,
+            lineHeight = 14.sp
+        )
 
-        // Row with Text and trailing Icon
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = prompt.description,
                 style = textStyle,
                 maxLines = 10,
                 overflow = TextOverflow.Ellipsis,
-                lineHeight = 14.sp,
+                onTextLayout = { layoutResult ->
+                    // Check if ellipsis (truncation) occurred
+                    isTextOverflowing = layoutResult.hasVisualOverflow
+                },
                 modifier = Modifier
                     .weight(1f)
             )
 
-            IconButton(
-                onClick = { onMoreClick() },
-                modifier = Modifier
-                    .padding(start = 4.dp)
-                    .clip(CircleShape)
-                    .background(PrimaryColor)
-                    .size(18.dp)
-                    .align(Alignment.Bottom),
-
+            if (isTextOverflowing) {
+                IconButton(
+                    onClick = { onMoreClick() },
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .clip(CircleShape)
+                        .background(PrimaryColor)
+                        .size(18.dp)
+                        .align(Alignment.Bottom)
                 ) {
-                Icon(
-                    painter = painterResource(R.drawable.left_arrow_icon), // use your icon
-                    contentDescription = "Show More",
-                    tint = Color.White,
-                    modifier = Modifier.size(10.dp)
-                )
+                    Icon(
+                        painter = painterResource(R.drawable.left_arrow_icon),
+                        contentDescription = "Show More",
+                        tint = Color.White,
+                        modifier = Modifier.size(10.dp)
+                    )
+                }
             }
         }
 
-        // Spacer(modifier = Modifier.height(8.dp))
-
+        // Action Row (Share, Save, Copy, etc.)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End,
@@ -279,7 +286,7 @@ fun CommunityPromptCard(
             IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
                 Icon(
                     painter = painterResource(R.drawable.bold_share_icon),
-                    contentDescription = "Copy",
+                    contentDescription = "Share",
                     tint = PrimaryColor,
                     modifier = Modifier.size(12.dp)
                 )
@@ -287,7 +294,7 @@ fun CommunityPromptCard(
             IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
                 Icon(
                     painter = painterResource(R.drawable.bold_save_icon),
-                    contentDescription = "Bookmark",
+                    contentDescription = "Save",
                     tint = PrimaryColor,
                     modifier = Modifier.size(12.dp)
                 )
@@ -295,7 +302,7 @@ fun CommunityPromptCard(
             IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
                 Icon(
                     painter = painterResource(R.drawable.bold_copy_icon),
-                    contentDescription = "Share",
+                    contentDescription = "Copy",
                     tint = PrimaryColor,
                     modifier = Modifier.size(12.dp)
                 )
@@ -303,7 +310,7 @@ fun CommunityPromptCard(
             IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
                 Icon(
                     painter = painterResource(R.drawable.bold_star_icon),
-                    contentDescription = "Share",
+                    contentDescription = "Star",
                     tint = PrimaryColor,
                     modifier = Modifier.size(12.dp)
                 )
@@ -314,7 +321,7 @@ fun CommunityPromptCard(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "5", // You can make this dynamic later
+                    text = "5",
                     fontSize = 10.sp,
                     color = TextColor,
                     lineHeight = 1.sp,
@@ -324,13 +331,9 @@ fun CommunityPromptCard(
                     painter = painterResource(R.drawable.bold_heart_icon),
                     contentDescription = "Like",
                     tint = PrimaryColor,
-                    modifier = Modifier
-                        .size(12.dp)
-
-
+                    modifier = Modifier.size(12.dp)
                 )
             }
-
         }
     }
 }

@@ -6,9 +6,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.promptai.app.presentation.screens.communityScreen.CommunityScreen
 import com.promptai.app.presentation.screens.promptAiScreen.PromptAiScreen
+import com.promptai.app.presentation.screens.promptDetailScreen.PromptDetailScreen
 import com.promptai.app.presentation.screens.promptSectionScreen.PromptSectionScreen
 import com.promptai.app.presentation.screens.savedPromptScreen.SavedPromptScreen
 import com.promptai.app.presentation.screens.templatesScreen.PromptTemplateScreen
+import com.promptai.app.presentation.screens.uploadPromptScreen.UploadPromptScreen
 
 @Composable
 fun RootNavHost(navHostController: NavHostController) {
@@ -20,16 +22,25 @@ fun RootNavHost(navHostController: NavHostController) {
             PromptAiScreen()
         }
         composable(route = ScreenRoutes.PromptTemplateScreen.routes) {
-            PromptTemplateScreen()
+            PromptTemplateScreen(navHostController)
         }
         composable(route = ScreenRoutes.CommunityScreen.routes) {
             CommunityScreen(navHostController)
         }
         composable(route = ScreenRoutes.SavedPromptScreen.routes) {
-            SavedPromptScreen()
+            SavedPromptScreen(navHostController)
         }
         composable(route = ScreenRoutes.PromptSectionScreen.routes) {
-            PromptSectionScreen()
+            PromptSectionScreen(navHostController)
+        }
+        composable(route = ScreenRoutes.UploadPromptScreen.routes) {
+            UploadPromptScreen(navHostController)
+        }
+        composable(route = ScreenRoutes.UploadPromptScreen.routes) {
+            UploadPromptScreen(navHostController)
+        }
+        composable(route = ScreenRoutes.PromptDetailScreen.routes) {
+            PromptDetailScreen(navHostController)
         }
     }
 }

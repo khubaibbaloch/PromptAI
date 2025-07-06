@@ -39,12 +39,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.promptai.app.R
+import com.promptai.app.presentation.navigation.ScreenRoutes
 import com.promptai.app.presentation.screens.communityScreen.CommunityPromptCard
 import com.promptai.app.presentation.screens.templatesScreen.PromptTemplate
 import com.promptai.app.presentation.screens.templatesScreen.TemplatesPromptCard
@@ -54,7 +57,7 @@ import com.promptai.app.ui.theme.PrimaryColor
 import com.promptai.app.ui.theme.TextColor
 
 @Composable
-fun PromptSectionScreen() {
+fun PromptSectionScreen(navController: NavController) {
     var searchQuery by rememberSaveable { mutableStateOf("") }
     val categories = remember {
         listOf(
@@ -97,15 +100,33 @@ fun PromptSectionScreen() {
             .background(Color.Transparent),
     ) {
 
-        Text(
-            text = "Categories",
-            style = MaterialTheme.typography.headlineMedium.copy(
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 22.sp,
-                color = TextColor
-            ),
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
+        Row(
+            modifier = Modifier.padding(bottom = 24.dp),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(
+                onClick = { navController.popBackStack() },
+                modifier = Modifier.size(25.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.bold_left_arrow),
+                    contentDescription = "Back",
+                    tint = PrimaryColor
+                )
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(
+                text = "Categories",
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 22.sp,
+                    color = TextColor
+                ),
+
+                )
+        }
+
 
         OutlinedTextField(
             value = searchQuery,
@@ -193,7 +214,9 @@ fun PromptSectionScreen() {
                 ) {
                     TemplatesPromptCard(
                         prompt = prompt,
-                        onMoreClick = {}
+                        onMoreClick = {
+                            navController.navigate(ScreenRoutes.PromptDetailScreen.routes)
+                        }
                     )
 
                     // This is the text below the card (outside the card)
