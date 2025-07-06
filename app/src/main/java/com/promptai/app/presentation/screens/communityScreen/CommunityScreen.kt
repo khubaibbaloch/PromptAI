@@ -53,10 +53,179 @@ import androidx.navigation.NavController
 import com.promptai.app.R
 import com.promptai.app.data.model.PromptTemplate
 import com.promptai.app.presentation.navigation.ScreenRoutes
+import com.promptai.app.presentation.screens.communityScreen.components.CommunityCategoryChips
+import com.promptai.app.presentation.screens.communityScreen.components.CommunityHeader
+import com.promptai.app.presentation.screens.communityScreen.components.CommunityPromptGrid
+import com.promptai.app.presentation.screens.communityScreen.components.CommunitySectionHeader
 import com.promptai.app.ui.theme.IconColor
 import com.promptai.app.ui.theme.OutlineColor
 import com.promptai.app.ui.theme.PrimaryColor
 import com.promptai.app.ui.theme.TextColor
+//@Composable
+//fun CommunityScreen(navController: NavController) {
+//    val prompts = remember {
+//        List(6) {
+//            PromptTemplate(
+//                "Here's a brief description for the blog prompt \"A Lesson I Learned the Hard Way\" in 2-3 lines:\n" +
+//                        "Share a personal story where a mistake or failure taught you an important life lesson. Reflect on it."
+//            )
+//        }
+//    }
+//
+//    val categories = remember {
+//        listOf(
+//            "Midjourney Art Prompts", "Blog Writing Prompts",
+//            "App Design Prompts", "Dev Tools"
+//        )
+//    }
+//
+//    var selectedCategory by rememberSaveable { mutableStateOf(categories[1]) }
+//
+//    val sections = listOf("Recents", "Most Liked", "Categories")
+//
+//    LazyColumn(
+//        modifier = Modifier
+//            .fillMaxSize(),
+//        contentPadding = PaddingValues(bottom = 80.dp)
+//    ) {
+//        item {
+//            Text(
+//                text = "Community",
+//                style = MaterialTheme.typography.headlineMedium.copy(
+//                    fontWeight = FontWeight.SemiBold,
+//                    fontSize = 22.sp,
+//                    color = TextColor
+//                ),
+//                modifier = Modifier.padding(bottom = 24.dp)
+//            )
+//
+//            OutlinedTextField(
+//                value = "",
+//                onValueChange = {},
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(56.dp),
+//                leadingIcon = {
+//                    Icon(
+//                        imageVector = Icons.Filled.Search,
+//                        contentDescription = "Search",
+//                        tint = IconColor
+//                    )
+//                },
+//                shape = RoundedCornerShape(12.dp),
+//                colors = OutlinedTextFieldDefaults.colors(
+//                    focusedContainerColor = Color.Transparent,
+//                    unfocusedContainerColor = Color.Transparent,
+//                    focusedBorderColor = OutlineColor,
+//                    unfocusedBorderColor = OutlineColor,
+//                    focusedTextColor = TextColor,
+//                    unfocusedTextColor = TextColor
+//                ),
+//                textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+//                placeholder = { Text("Search for prompts", color = IconColor) }
+//            )
+//        }
+//
+//        sections.forEach { sectionTitle ->
+//            item {
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(top = 24.dp, bottom = 8.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween
+//                ) {
+//                    Text(
+//                        text = sectionTitle,
+//                        style = MaterialTheme.typography.bodyLarge.copy(
+//                            fontWeight = FontWeight.Medium,
+//                            fontSize = 14.sp,
+//                            color = TextColor
+//                        )
+//                    )
+//                    Text(
+//                        text = "See All",
+//                        style = MaterialTheme.typography.titleSmall.copy(
+//                            fontWeight = FontWeight.Normal,
+//                            fontSize = 10.sp,
+//                            color = TextColor
+//                        ),
+//                        modifier = Modifier.clickable {
+//                            navController.navigate(ScreenRoutes.PromptSectionScreen.routes)
+//                        }
+//                    )
+//                }
+//            }
+//
+//            if (sectionTitle == "Categories") {
+//                item {
+//                    LazyRow(
+//                        contentPadding = PaddingValues(horizontal = 4.dp),
+//                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+//                        modifier = Modifier.fillMaxWidth()
+//                    ) {
+//                        items(categories) { category ->
+//                            val isSelected = selectedCategory == category
+//
+//                            FilterChip(
+//                                selected = isSelected,
+//                                onClick = { selectedCategory = category },
+//                                label = {
+//                                    Text(
+//                                        text = category,
+//                                        color = if (isSelected) Color.White else PrimaryColor,
+//                                        fontSize = 12.sp
+//                                    )
+//                                },
+//                                colors = FilterChipDefaults.filterChipColors(
+//                                    selectedContainerColor = PrimaryColor,
+//                                    containerColor = Color.Transparent
+//                                ),
+//                                shape = RoundedCornerShape(12.dp),
+//                                border = BorderStroke(1.dp, PrimaryColor)
+//                            )
+//                        }
+//                    }
+//                }
+//            }
+//
+//            item {
+//                LazyVerticalGrid(
+//                    columns = GridCells.Adaptive(minSize = 140.dp),
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .heightIn(max = 600.dp),
+//                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+//                    verticalArrangement = Arrangement.spacedBy(16.dp),
+//                    userScrollEnabled = false,
+//                    contentPadding = PaddingValues(vertical = 4.dp)
+//                ) {
+//                    items(prompts.take(2)) { prompt ->
+//                        Column(
+//                            modifier = Modifier.fillMaxWidth(),
+//                            verticalArrangement = Arrangement.spacedBy(4.dp)
+//                        ) {
+//                            CommunityPromptCard(
+//                                prompt = prompt,
+//                                onMoreClick = {   navController.navigate(ScreenRoutes.PromptDetailScreen.routes) }
+//                            )
+//                            Text(
+//                                text = "Personal Development",
+//                                style = MaterialTheme.typography.titleSmall.copy(
+//                                    fontSize = 12.sp,
+//                                    color = PrimaryColor
+//                                ),
+//                                maxLines = 1,
+//                                modifier = Modifier.padding(start = 4.dp)
+//                            )
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+//
+
 @Composable
 fun CommunityScreen(navController: NavController) {
     val prompts = remember {
@@ -76,7 +245,6 @@ fun CommunityScreen(navController: NavController) {
     }
 
     var selectedCategory by rememberSaveable { mutableStateOf(categories[1]) }
-
     val sections = listOf("Recents", "Most Liked", "Categories")
 
     LazyColumn(
@@ -85,253 +253,24 @@ fun CommunityScreen(navController: NavController) {
         contentPadding = PaddingValues(bottom = 80.dp)
     ) {
         item {
-            Text(
-                text = "Community",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 22.sp,
-                    color = TextColor
-                ),
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
-
-            OutlinedTextField(
-                value = "",
-                onValueChange = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = "Search",
-                        tint = IconColor
-                    )
-                },
-                shape = RoundedCornerShape(12.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedBorderColor = OutlineColor,
-                    unfocusedBorderColor = OutlineColor,
-                    focusedTextColor = TextColor,
-                    unfocusedTextColor = TextColor
-                ),
-                textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-                placeholder = { Text("Search for prompts", color = IconColor) }
-            )
+            CommunityHeader()
         }
 
         sections.forEach { sectionTitle ->
             item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 24.dp, bottom = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = sectionTitle,
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 14.sp,
-                            color = TextColor
-                        )
-                    )
-                    Text(
-                        text = "See All",
-                        style = MaterialTheme.typography.titleSmall.copy(
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 10.sp,
-                            color = TextColor
-                        ),
-                        modifier = Modifier.clickable {
-                            navController.navigate(ScreenRoutes.PromptSectionScreen.routes)
-                        }
-                    )
-                }
+                CommunitySectionHeader(sectionTitle = sectionTitle, navController = navController)
             }
 
             if (sectionTitle == "Categories") {
                 item {
-                    LazyRow(
-                        contentPadding = PaddingValues(horizontal = 4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        items(categories) { category ->
-                            val isSelected = selectedCategory == category
-
-                            FilterChip(
-                                selected = isSelected,
-                                onClick = { selectedCategory = category },
-                                label = {
-                                    Text(
-                                        text = category,
-                                        color = if (isSelected) Color.White else PrimaryColor,
-                                        fontSize = 12.sp
-                                    )
-                                },
-                                colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = PrimaryColor,
-                                    containerColor = Color.Transparent
-                                ),
-                                shape = RoundedCornerShape(12.dp),
-                                border = BorderStroke(1.dp, PrimaryColor)
-                            )
-                        }
+                    CommunityCategoryChips(categories, selectedCategory) {
+                        selectedCategory = it
                     }
                 }
             }
 
             item {
-                LazyVerticalGrid(
-                    columns = GridCells.Adaptive(minSize = 140.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(max = 600.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    userScrollEnabled = false,
-                    contentPadding = PaddingValues(vertical = 4.dp)
-                ) {
-                    items(prompts.take(2)) { prompt ->
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            CommunityPromptCard(
-                                prompt = prompt,
-                                onMoreClick = {   navController.navigate(ScreenRoutes.PromptDetailScreen.routes) }
-                            )
-                            Text(
-                                text = "Personal Development",
-                                style = MaterialTheme.typography.titleSmall.copy(
-                                    fontSize = 12.sp,
-                                    color = PrimaryColor
-                                ),
-                                maxLines = 1,
-                                modifier = Modifier.padding(start = 4.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun CommunityPromptCard(
-    prompt: PromptTemplate,
-    onMoreClick: () -> Unit
-) {
-    var isTextOverflowing by remember { mutableStateOf(false) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color.Transparent)
-            .border(1.dp, OutlineColor, RoundedCornerShape(12.dp))
-            .padding(top = 8.dp, end = 8.dp, start = 8.dp, bottom = 4.dp)
-    ) {
-        val textStyle = MaterialTheme.typography.bodyMedium.copy(
-            fontSize = 12.sp,
-            color = TextColor,
-            lineHeight = 14.sp
-        )
-
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                text = prompt.description,
-                style = textStyle,
-                maxLines = 10,
-                overflow = TextOverflow.Ellipsis,
-                onTextLayout = { layoutResult ->
-                    // Check if ellipsis (truncation) occurred
-                    isTextOverflowing = layoutResult.hasVisualOverflow
-                },
-                modifier = Modifier
-                    .weight(1f)
-            )
-
-            if (isTextOverflowing) {
-                IconButton(
-                    onClick = { onMoreClick() },
-                    modifier = Modifier
-                        .padding(start = 4.dp)
-                        .clip(CircleShape)
-                        .background(PrimaryColor)
-                        .size(18.dp)
-                        .align(Alignment.Bottom)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.left_arrow_icon),
-                        contentDescription = "Show More",
-                        tint = Color.White,
-                        modifier = Modifier.size(10.dp)
-                    )
-                }
-            }
-        }
-
-        // Action Row (Share, Save, Copy, etc.)
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.Bottom
-        ) {
-            IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
-                Icon(
-                    painter = painterResource(R.drawable.bold_share_icon),
-                    contentDescription = "Share",
-                    tint = PrimaryColor,
-                    modifier = Modifier.size(12.dp)
-                )
-            }
-            IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
-                Icon(
-                    painter = painterResource(R.drawable.bold_save_icon),
-                    contentDescription = "Save",
-                    tint = PrimaryColor,
-                    modifier = Modifier.size(12.dp)
-                )
-            }
-            IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
-                Icon(
-                    painter = painterResource(R.drawable.bold_copy_icon),
-                    contentDescription = "Copy",
-                    tint = PrimaryColor,
-                    modifier = Modifier.size(12.dp)
-                )
-            }
-            IconButton(onClick = { }, modifier = Modifier.size(25.dp)) {
-                Icon(
-                    painter = painterResource(R.drawable.bold_star_icon),
-                    contentDescription = "Star",
-                    tint = PrimaryColor,
-                    modifier = Modifier.size(12.dp)
-                )
-            }
-            Column(
-                modifier = Modifier.padding(bottom = 6.dp, start = 4.dp, top = 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "5",
-                    fontSize = 10.sp,
-                    color = TextColor,
-                    lineHeight = 1.sp,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
-                Icon(
-                    painter = painterResource(R.drawable.bold_heart_icon),
-                    contentDescription = "Like",
-                    tint = PrimaryColor,
-                    modifier = Modifier.size(12.dp)
-                )
+                CommunityPromptGrid(prompts = prompts, navController = navController)
             }
         }
     }
